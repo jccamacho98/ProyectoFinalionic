@@ -1,0 +1,74 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>TaskList Header</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-left (click)="guardar()">
+        <ion-icon name="add"></ion-icon>
+        Add 
+      </button>
+      
+      <ion-item class="TasklistPage">
+        <ion-input [(ngModel)]="newItem.task" placeholder="Ingrese item"> </ion-input>
+      </ion-item>
+    
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding >
+ 
+  <div>
+  <ion-list>
+    <ion-item-sliding #slidingItem *ngFor="let tarea of items">
+       <!--formulario editar-->
+  <div *ngIf="enableEdit">
+    <ion-buttons end>
+      <button ion-button icon-left (click)=" editar(tarea);enableEdit=false; ">
+        <ion-icon name="create"></ion-icon>
+       edit
+      </button>
+      
+      <ion-item class="TasklistPage">
+        <ion-input [(ngModel)]="newItem.task" placeholder="Ingrese nuevo valor"> </ion-input>
+      </ion-item>
+    
+    </ion-buttons>
+  </div>
+  <!------------------------------------------>
+      <!--<ion-item *ngFor="let tarea of items">-->
+       <ion-item>
+        <ion-label>
+          {{tarea.task}}
+       </ion-label>
+      </ion-item>
+     
+      <ion-item-options side="end" (ionSwipe)="eliminar(tarea)">
+       <!-- 
+        <button ion-button icon-only (click)="markAsDone(slidingItem, tarea)" color="secondary">
+          <ion-icon name="checkmark"></ion-icon>
+        </button>
+-->
+        <button ion-button icon-only expandable (click)="eliminar(tarea)" color="danger">
+          <ion-icon name="trash"></ion-icon>
+        </button>
+        <!--boton editar-->
+        <button ion-button icon-only expandable (click)=" enableEdit=true" color="danger">
+          <ion-icon name="create"></ion-icon>
+        </button>
+
+      </ion-item-options>
+      
+
+    </ion-item-sliding>
+  </ion-list>
+
+</div>
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-title>TaskList Footer</ion-title>
+  </ion-toolbar>
+</ion-footer>
+
